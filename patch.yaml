@@ -1,8 +1,0 @@
-ports:
-  - port: 443
-    targetPort: 443
-    name: "https"
-  - port: 9097
-    targetPort: 9097
-    name: "http"
-  type: LoadBalancer
