@@ -49,5 +49,5 @@ jobs:
         run: kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release.yaml
 
       
-      - run: kubectl patch svc tekton-dashboard -p '{"spec": {"ports": [{"port": 443,"targetPort": 443,"name": "https"},{"port": 9097,"targetPort": 9097,"name": "http"}],"type": "LoadBalancer"}}'
+      - run: kubectl patch svc tekton-dashboard --patch "$(cat patch.yaml)"
       - run: kubectl get all -n tekton-pipelines
