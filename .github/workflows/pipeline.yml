@@ -45,6 +45,8 @@ jobs:
             kubectl apply --filename \
             https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
             
-      - run: kubectl get pods --namespace tekton-pipelines --watch
+      - name: Tekton Dashboard Installation
+        run: kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release.yaml
 
+      - run: kubectl get pods --namespace tekton-pipelines --watch
       
