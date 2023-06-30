@@ -50,6 +50,6 @@ jobs:
 
       
       - run: |
-            kubectl expose deployment tekton-dashboard --port=80 --target-port=9097 \ 
-            --name=tekton-dashboard-service --type=LoadBalancer
+            kubectl expose deployment tekton-pipelines --port=80 --target-port=9097 \ 
+            --name=tekton-pipelines-service --type=LoadBalancer
       - run: kubectl get all -n tekton-pipelines
