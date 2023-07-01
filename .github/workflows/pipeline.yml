@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: STAGING
-      url: ${EXTERNAL_IP}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -30,16 +27,18 @@ jobs:
 
       - run: aws eks update-kubeconfig --name skyu-eks-cluster --region us-east-2
 
-      - name: External-IP for expose ArgoCD Dashboard
+      - name: ArgoCD Dashboard URL
         run: | 
-        
-          # Retrieve the External-IP using kubectl
           EXTERNAL_IP=$(kubectl get service argo-cd-argocd-argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
-        
+          echo "ArgoCD Dashboard URL: ${EXTERNAL_IP}"
 
       - name: Password For ArgoCD
-        run: aws secretsmanager get-secret-value --secret-id argocd --region us-east-2 --query 'SecretString' --output text
+        run: | 
+          PASSWORD=$(aws secretsmanager get-secret-value --secret-id argocd --region us-east-2 --query 'SecretString' --output text)
+
+          echo "Username: admin"
+          echo "Password: ${PASSWORD}"
 
       - name: Tekton Pipeline Installation
         run: kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
@@ -55,5 +54,8 @@ jobs:
             
       - run: kubectl apply -f release.yaml  
       
-      - name: External-IP for expose Tekton Dashboard
-        run: kubectl get service tekton-dashboard -n tekton-pipelines -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+      - name: Tekton Dashboard URL
+        run: | 
+          EXTERNAL_IP=$(kubectl get service tekton-dashboard -n tekton-pipelines -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+          echo "Tekton Dashboard URL: ${EXTERNAL_IP}"
