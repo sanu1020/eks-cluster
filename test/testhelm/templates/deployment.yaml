@@ -37,7 +37,7 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port1 }}
               protocol: TCP
-            - name: http
+            - name: custom-port
               containerPort: {{ .Values.service.port2 }}
               protocol: TCP
           livenessProbe:
