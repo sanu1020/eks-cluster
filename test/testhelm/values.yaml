@@ -37,11 +37,10 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  - type: LoadBalancer
-    port1: 3000
+  type: LoadBalancer
+  - port1: 3000
     targetport1: 3000
-  - type: LoadBalancer
-    port2: 5870
+  - port2: 5870
     targetport2: 5870
 
 
