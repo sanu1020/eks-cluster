@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'signupfront/**'
+      - 'test/**'
 
 jobs:
   build:
@@ -24,10 +24,10 @@ jobs:
       - name: Build and push an image to container registry
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4u1j4l3
-          docker build -t signup .
-          docker tag signup:latest public.ecr.aws/a4u1j4l3/signup:latest
-          docker push public.ecr.aws/a4u1j4l3/signup:latest  
-        working-directory: ./signupfront
+          docker build -t test .
+          docker tag signup:latest public.ecr.aws/a4u1j4l3/test:latest
+          docker push public.ecr.aws/a4u1j4l3/test:latest  
+        working-directory: ./test
   
       - uses: bitovi/github-actions-deploy-eks-helm@v1.2.4
         with:
@@ -35,6 +35,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
           cluster-name: skyu-eks-cluster
-          config-files: signupfront/signuphelm/values.yaml
-          chart-path: signupfront/signuphelm
-          name: signhelm
+          config-files: test/testhelm/values.yaml
+          chart-path: test/testhelm
+          name: testhelm
