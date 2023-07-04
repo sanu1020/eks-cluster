@@ -7,9 +7,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+    - port: {{ .Values.service.port1 }}
+      targetPort: {{ .Values.service.targetPort1 }}
       protocol: TCP
       name: http
+    - port: {{ .Values.service.port2 }}
+      targetPort: {{ .Values.service.targetPort2 }}
+      protocol: TCP
+      name: custom-port
   selector:
     {{- include "signuphelm.selectorLabels" . | nindent 4 }}
