@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      './signupfront/**'
+      'signupfront/**'
 
 jobs:
   build:

@@ -11,7 +11,7 @@ const Home = () => {
                             <h1 className="display-4 fw-bolder mb-4
                             text-center text-white">Hey There....</h1>
                             <p className="lead text-center fs-4 mb-5 text-white">
-                                Welcome To Home
+                                Welcome To Home World
                             </p>
                         </div>
                     </div>
