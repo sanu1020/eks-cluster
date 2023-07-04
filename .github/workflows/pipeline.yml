@@ -1,12 +1,13 @@
 name: CI Pipeline
 
 on:
-  push:
+  pull-request:
     branches:
       - main
 
 jobs:
   build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -25,6 +26,14 @@ jobs:
       - name: terraform apply
         run: terraform apply --auto-approve
 
+  argo-cd:
+    name: argo-cd  
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
       - run: aws eks update-kubeconfig --name skyu-eks-cluster --region us-east-2
 
       - name: ArgoCD Dashboard URL
@@ -39,6 +48,12 @@ jobs:
 
           echo "Username: admin"
           echo "Password: ${PASSWORD}"
+          
+  Tekton :
+    name: Tekton
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
 
       - name: Tekton Pipeline Installation
         run: kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml

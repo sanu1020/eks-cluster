@@ -1,0 +1,59 @@
+name: CI / CD
+
+on:
+  pull-request:
+    branches:
+      - main
+
+jobs:
+  login-to-aws:
+    name: Login To AWS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+  build-and-publish-docker-image:
+    name: Build and Publish Docker Image to ECR
+    runs-on: ubuntu-latest
+    needs: [login-to-aws]
+    steps:
+      - uses: actions/checkout@v2
+    
+      - name: Build and push an image to container registry
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4u1j4l3
+          docker build -t signup .
+          docker tag signup:latest public.ecr.aws/a4u1j4l3/signup:latest
+          docker push public.ecr.aws/a4u1j4l3/signup:latest  
+        working-directory: ./signupfront
+  
+  deploy to EKS Cluster:
+    name: Deploy to EKS Cluster
+    runs-on: ubuntu-latest
+    needs: [login-to-aws,build-and-publish-docker-image]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: helm install
+        run: |
+          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+          sudo apt-get install apt-transport-https --yes
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+          sudo apt-get update
+          sudo apt-get install helm
+        
+      - run: aws eks update-kubeconfig --name skyu-eks-cluster --region us-east-2
+
+      - run: helm install signhelm signuphelm    
+
+      - run: helm package signuphelm    
+
+      - run: helm upgrade signhelm signuphelm    
