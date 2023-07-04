@@ -25,7 +25,7 @@ jobs:
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4u1j4l3
           docker build -t test .
-          docker tag signup:latest public.ecr.aws/a4u1j4l3/test:latest
+          docker tag test:latest public.ecr.aws/a4u1j4l3/test:latest
           docker push public.ecr.aws/a4u1j4l3/test:latest  
         working-directory: ./test
   
