@@ -3,6 +3,3 @@ output "configure_kubectl" {
   value       = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --alias ${module.eks.cluster_name}"
 }
 
-output "" {
-  
-}
