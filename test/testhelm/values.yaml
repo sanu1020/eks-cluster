@@ -40,7 +40,7 @@ service:
   type: LoadBalancer
   port1: 3000
   targetport1: 3000
-  port2: 5870
+  port2: 3000
   targetport2: 5870
 
 
