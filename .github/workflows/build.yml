@@ -35,7 +35,7 @@ jobs:
           docker push public.ecr.aws/a4u1j4l3/signup:latest  
         working-directory: ./signupfront
   
-  deploy to EKS Cluster:
+  deploy-to-eks-Cluster:
     name: Deploy to EKS Cluster
     runs-on: ubuntu-latest
     needs: [login-to-aws,build-and-publish-docker-image]
