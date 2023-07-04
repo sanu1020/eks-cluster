@@ -38,8 +38,8 @@ securityContext: {}
 
 service:
   type: LoadBalancer
-  port: 5870
-  targetport: 5870
+  port: 3000
+  targetport: 3000
 
 ingress:
   enabled: false
