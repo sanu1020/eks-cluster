@@ -33,7 +33,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
           cluster-name: skyu-eks-cluster
-          cluster-role-arn: arn:aws:iam::987468179696:role/skyu-eks-cluster-cluster-20230630000326254100000002
           config-files: signupfront/signuphelm/values.yaml
           chart-path: signupfront/signuphelm
           name: signhelm
