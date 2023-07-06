@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'devops/**'
     schedule:
       - cron: '57 10 * * *'
 
