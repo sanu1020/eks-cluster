@@ -1,8 +1,16 @@
 provider "aws" {
-  region     = "us-east-1"
+  region = "us-east-1"   # Update with your desired region
 }
 
-resource "aws_instance" "terraform_state_test" {
-  ami                     = "ami-06b09bfacae1453cb"
-  instance_type           = "t2.micro"
+resource "aws_s3_bucket" "example" {
+  bucket = "sanu-tes-teraform-state"   # Update with your desired bucket name
+
+  # Optional bucket configurations
+  acl    = "private"          # Update with your desired ACL (private, public-read, etc.)
+  
+
+  tags = {
+    Name        = "My Bucket"
+    Environment = "Development"
+  }
 }
