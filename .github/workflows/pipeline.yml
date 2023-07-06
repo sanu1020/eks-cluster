@@ -7,7 +7,7 @@ on:
     paths:
       - 'devops/**'
     schedule:
-      - cron: '15 10 * * *'
+      - cron: '57 10 * * *'
 
 jobs:
   build:
@@ -16,53 +16,5 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-      
-      - name: terraform initiate
-        run: terraform init
-        working-directory: ./devops/terraform
-
-      - name: terraform apply
-        run: terraform apply --auto-approve
-        working-directory: ./devops/terraform
-
-      - run: aws eks update-kubeconfig --name skyu-eks-cluster --region us-east-2
-
-      - name: ArgoCD Dashboard URL
-        run: | 
-          EXTERNAL_IP=$(kubectl get service argo-cd-argocd-argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-
-          echo "ArgoCD Dashboard URL: ${EXTERNAL_IP}"
-
-      - name: Password For ArgoCD
-        run: | 
-          PASSWORD=$(aws secretsmanager get-secret-value --secret-id argocd --region us-east-2 --query 'SecretString' --output text)
-
-          echo "Username: admin"
-          echo "Password: ${PASSWORD}"
-
-      - name: Tekton Pipeline Installation
-        run: kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
-
-     
-
-      - name: Tekton Trigger Installation
-        run:  |
-            kubectl apply --filename \
-            https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
-            kubectl apply --filename \
-            https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
-            
-      - run: kubectl apply -f release.yaml  
-        working-directory: ./devops/tekton
-      
-      - name: Tekton Dashboard URL
-        run: | 
-          EXTERNAL_IP=$(kubectl get service tekton-dashboard -n tekton-pipelines -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-
-          echo "Tekton Dashboard URL: ${EXTERNAL_IP}"
+      - run: |
+          echo "Hello World"
