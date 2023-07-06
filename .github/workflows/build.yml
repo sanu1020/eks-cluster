@@ -1,58 +1,58 @@
-name: CI / CD
+# name: CI / CD
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'api/**'
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'api/**'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
+#       - name: Configure AWS Credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-2
     
-      # - name: Build and push an image to container registry
-      #   run: |
-      #     aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4u1j4l3
-      #     docker build -t test .
-      #     docker tag test:latest public.ecr.aws/a4u1j4l3/test:v1
-      #     docker push public.ecr.aws/a4u1j4l3/test:v1  
-      #   working-directory: ./test
+#       # - name: Build and push an image to container registry
+#       #   run: |
+#       #     aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4u1j4l3
+#       #     docker build -t test .
+#       #     docker tag test:latest public.ecr.aws/a4u1j4l3/test:v1
+#       #     docker push public.ecr.aws/a4u1j4l3/test:v1  
+#       #   working-directory: ./test
 
-      - name: Login to Amazon ECR Public
-        id: login-ecr-public
-        uses: aws-actions/amazon-ecr-login@v1
-        with:
-          registry-type: public
+#       - name: Login to Amazon ECR Public
+#         id: login-ecr-public
+#         uses: aws-actions/amazon-ecr-login@v1
+#         with:
+#           registry-type: public
 
-      - name: Build, tag, and push docker image to Amazon ECR Public
-        env:
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-          REGISTRY_ALIAS: a4u1j4l3
-          REPOSITORY: test
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
-          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-        working-directory: ./test
+#       - name: Build, tag, and push docker image to Amazon ECR Public
+#         env:
+#           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+#           REGISTRY_ALIAS: a4u1j4l3
+#           REPOSITORY: test
+#           IMAGE_TAG: ${{ github.sha }}
+#         run: |
+#           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+#           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+#         working-directory: ./test
   
-      - uses: bitovi/github-actions-deploy-eks-helm@v1.2.4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-          cluster-name: skyu-eks-cluster
-          config-files: test/testhelm/values.yaml
-          chart-path: test/testhelm
-          name: testhelm
+#       - uses: bitovi/github-actions-deploy-eks-helm@v1.2.4
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-2
+#           cluster-name: skyu-eks-cluster
+#           config-files: test/testhelm/values.yaml
+#           chart-path: test/testhelm
+#           name: testhelm
   
