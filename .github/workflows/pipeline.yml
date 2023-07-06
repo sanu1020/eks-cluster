@@ -1,11 +1,9 @@
 name: CI Pipeline
 
-on:
+
   
-    branches:
-      - main
-  schedule:
-    - cron: '*/2 * * * *'
+ 
+
 
 jobs:
   build:
