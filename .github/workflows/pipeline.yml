@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'devops/**'
+    schedule:
+      - cron: '15 10 * * *'
 
 jobs:
   build:
