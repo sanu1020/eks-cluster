@@ -7,10 +7,4 @@ resource "aws_s3_bucket" "example" {
 
   # Optional bucket configurations
   acl    = "private"          # Update with your desired ACL (private, public-read, etc.)
-  
-
-  tags = {
-    Name        = "My Bucket"
-    Environment = "Development"
-  }
 }
