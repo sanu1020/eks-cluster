@@ -1,11 +1,5 @@
 name: Deploy SkyU.IO to Cloudfront
 
-on:
-  push:
-    branches:
-      - main
-
-
 
 jobs:
   STAGING:
