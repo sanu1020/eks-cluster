@@ -25,7 +25,7 @@ jobs:
       - name: terraform initiate
         run: terraform init
       
-      - run: terraform plan
+      - run: sleep 60
 
       - name: terraform apply
         run: terraform apply --auto-approve
