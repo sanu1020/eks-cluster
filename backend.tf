@@ -1,7 +1,8 @@
 terraform {
   backend "s3" {
     bucket         = "terraform-statefile-test-skyu"
-    key            = "terraform.tfstate?versionId=zXwQD8BqXoAZPWqp9TAcmc.FWDmouACa"
+    key            = "terraform.tfstate"
     region         = "us-east-1"
+    versionId      = "zXwQD8BqXoAZPWqp9TAcmc.FWDmouACa"
   }
 }
