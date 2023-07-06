@@ -21,10 +21,11 @@ jobs:
         with:
             role-to-assume: "arn:aws:iam::438463683713:role/role-for-terraform-test"
             aws-region: "us-east-1"
-            
+
       - name: terraform initiate
         run: terraform init
       
+      - run: terraform plan
 
       - name: terraform apply
         run: terraform apply --auto-approve
