@@ -1,7 +1,7 @@
 name: CI Pipeline
 
 on:
-  pull-request:
+  
     branches:
       - main
   schedule:
