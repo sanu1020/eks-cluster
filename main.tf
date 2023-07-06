@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "sanu-tes-teraform-state"   # Update with your desired bucket name
+  bucket = "sanu-tes-teraform-state-bucket"   # Update with your desired bucket name
 
   # Optional bucket configurations
   acl    = "private"          # Update with your desired ACL (private, public-read, etc.)
