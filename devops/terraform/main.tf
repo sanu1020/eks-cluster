@@ -34,7 +34,7 @@ provider "bcrypt" {}
 data "aws_availability_zones" "available" {}
 
 locals {
-  name   = "skyu-eks-cluster"
+  name   = "skyu-test-cluster"
   region = "us-east-1"
 
   vpc_cidr = "10.0.0.0/16"
@@ -79,7 +79,7 @@ module "eks" {
     }
   }
 
-  tags = local.tags
+  
 }
 
 ################################################################################
@@ -162,7 +162,7 @@ module "eks_blueprints_addons" {
   enable_metrics_server                = true
   enable_argo_rollouts                 = true
 
-  tags = local.tags
+  
 }
 
 #---------------------------------------------------------------
@@ -218,5 +218,5 @@ module "vpc" {
     "kubernetes.io/role/internal-elb" = 1
   }
 
-  tags = local.tags
+  
 }
