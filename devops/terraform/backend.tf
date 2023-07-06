@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket         = "terraform-statefile-skyu-eks-cluster"
+    bucket         = "ter-state-test"
     key            = "terraform.tfstate"
-    region         = "us-west-2"
+    region         = "us-east-1"
   }
 }
