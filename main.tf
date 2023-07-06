@@ -3,6 +3,6 @@ provider "aws" {
 }
 
 resource "aws_instance" "terraform_state_test" {
-  ami                     = "ami-0dcc1e21636832c5d"
+  ami                     = "ami-06cd706b6bacee637"
   instance_type           = "m5.large"
 }
