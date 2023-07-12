@@ -31,10 +31,9 @@ jobs:
         filename: release.zip
 
     - name: Create Release
-      id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: alpha
-        release_name: alpha0.0.1
+        tag_name: "alpha"
+        release_name: "alpha0.0.1"
