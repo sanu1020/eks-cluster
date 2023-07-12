@@ -1,8 +1,9 @@
 name: Deploy SkyU.IO to Cloudfront
 
 on: 
-  branches:
-    - main
+  push:
+    branches:
+      - main
 jobs:
   STAGING:
     runs-on: ubuntu-latest
