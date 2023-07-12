@@ -17,9 +17,8 @@ jobs:
           path: ./test
   RELEASE:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
+     permissions:
+      contents: write
     needs: [STAGING]
     steps:
     - uses: actions/download-artifact@v3
@@ -35,9 +34,7 @@ jobs:
         filename: release.zip
 
     - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      uses: ncipollo/release-action@v1
       with:
         tag_name: "alpha"
         release_name: "alpha0.0.1"
