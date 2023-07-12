@@ -1,6 +1,8 @@
 name: Deploy SkyU.IO to Cloudfront
 
-on: workflow_dispatch
+on: 
+  branches:
+    - main
 jobs:
   STAGING:
     runs-on: ubuntu-latest
@@ -21,3 +23,8 @@ jobs:
     
     - name: Display structure of downloaded files
       run: ls -R
+
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.1
+      with: 
+        filename: 'release.zip'
