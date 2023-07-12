@@ -1,21 +1,22 @@
 name: Deploy SkyU.IO to Cloudfront
 
-on: 
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 jobs:
   STAGING:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/upload-artifact@v3
+            - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
           path: ./test
   RELEASE:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     needs: [STAGING]
     steps:
     - uses: actions/download-artifact@v3
