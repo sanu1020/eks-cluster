@@ -36,5 +36,5 @@ jobs:
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:
-        tag_name: "alpha"
-        release_name: "alpha0.0.1"
+        tag: "alpha"
+        name: "alpha0.0.1"
