@@ -10,7 +10,7 @@ on:
 
 jobs:
   tfsec:
-    if: ${{ startsWith(github.event.path, 'Path1/') }}
+    if: github.event.path == 'Path1/**'
     name: tfsec sarif report path 1
     runs-on: ubuntu-latest
     steps:
@@ -21,7 +21,7 @@ jobs:
         run: echo "v.${{ github.sha }}"
 
   tfsecr:
-    if: ${{ startsWith(github.event.path, 'Path2/') }}
+    if: github.event.path == 'Path2/**'
     name: tfsec sarif report path 2
     runs-on: ubuntu-latest
     steps:
