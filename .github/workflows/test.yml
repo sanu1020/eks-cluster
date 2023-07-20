@@ -8,5 +8,5 @@ jobs:
   tfsec:
     name: tfsec sarif report
     runs-on: ubuntu-latest
-   steps:
-    - run: echo ${{ github.sha }}
+    steps:
+      - run: echo ${{ github.sha }}
