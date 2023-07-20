@@ -10,3 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo v.${{ github.sha }}
+
+      - run: echo v.${{ github.sha }}.1
