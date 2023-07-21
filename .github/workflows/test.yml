@@ -5,14 +5,14 @@ on:
     branches:
       - dev
     paths:
-      - 'Path1/*'
+      - 'Path1/**'
       - 'Path2/**'
 
 jobs:
   tfsec:
-    if: github.event.path == 'Path1/*'
     name: tfsec sarif report path 1
     runs-on: ubuntu-latest
+    if: ${{ startsWith(github.event.head_commit.modified[0], 'Path1/') }}
     steps:
       - name: Check out the code
         uses: actions/checkout@v2
