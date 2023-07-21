@@ -5,12 +5,12 @@ on:
     branches:
       - dev
     paths:
-      - 'Path1/**'
+      - 'Path1/*'
       - 'Path2/**'
 
 jobs:
   tfsec:
-    if: github.event.path == 'Path1/**'
+    if: github.event.path == 'Path1/*'
     name: tfsec sarif report path 1
     runs-on: ubuntu-latest
     steps:
