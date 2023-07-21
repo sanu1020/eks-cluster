@@ -3,7 +3,7 @@ name: tfsec
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - 'Path1/**'
       - 'Path2/**'
