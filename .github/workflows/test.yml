@@ -10,12 +10,14 @@ on:
 
 jobs:
   tfsec:
+    if: github.event.push.paths == 'Path1/**'
     name: tfsec sarif report path 1
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.event.head_commit.modified[0], 'Path1/') }}
     steps:
       - name: Check out the code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
 
       - name: Echo version and SHA for Path1
         run: echo "v.${{ github.sha }}"
