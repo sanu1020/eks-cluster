@@ -3,11 +3,11 @@ name: tfsec
 on:
   pull_request_target:
     branches:
-      - dev
+      - com
 
 jobs:
   tfsec:
-    if: startsWith(github.ref, 'refs/heads/dev') && github.event.pull_request.merged == true
+    if: startsWith(github.ref, 'refs/heads/com') && github.event.pull_request.merged == true
     name: tfsec sarif report path 1
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +20,7 @@ jobs:
         run: echo "v.${{ github.sha }}"
 
   tfsecr:
-    if: startsWith(github.ref, 'refs/heads/dev') && github.event.pull_request.merged == true
+    if: startsWith(github.ref, 'refs/heads/com') && github.event.pull_request.merged == true
     name: tfsec sarif report path 2
     runs-on: ubuntu-latest
     steps:
