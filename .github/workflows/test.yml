@@ -6,4 +6,4 @@ on:
    
 jobs:
   gitHub-actions-demo:
-    uses: sanu1020/eks-cluster/ .github/workflows/reusuable-workflow.yaml@c
+    uses: ./ .github/workflows/reusuable-workflow.yaml@c
