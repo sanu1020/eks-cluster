@@ -43,3 +43,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: echo v.${{ github.sha }}
+
+  Hello:
+    needs: [Path1,Path2]
+    if: ${{ needs.changes.outputs.Path2 == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: echo v.${{ github.sha }}
