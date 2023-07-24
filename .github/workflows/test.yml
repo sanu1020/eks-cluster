@@ -9,8 +9,30 @@ jobs:
     name: tfsec sarif report path 2
     runs-on: ubuntu-latest
     steps:
-      - run: echo v.${{ github.sha }}
-  
-  gitHub-actions-demo:
-    needs: [tfsecr]
-    uses: ./.github/workflows/reusuable-workflow.yml
+ 
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            Path1:
+              - 'Path1/**'
+
+      # run only if some file in 'src' folder was changed
+    - if: steps.changes.outputs.Path1 == 'true'
+      run: echo v.${{ github.sha }}
+
+  tfsecr:
+    name: tfsec sarif report path 2
+    runs-on: ubuntu-latest
+    steps:
+ 
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            Path2:
+              - 'Path2/**'
+
+      # run only if some file in 'src' folder was changed
+    - if: steps.changes.outputs.Path2 == 'true'
+      run: echo v.${{ github.sha }}
