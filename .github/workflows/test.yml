@@ -24,7 +24,7 @@ jobs:
           Path1:
             - 'Path1/**'
           Path2:
-            - 'Path2/**'          
+            - 'Path2/infra/**'          
 
   Path1:
     needs: changes
