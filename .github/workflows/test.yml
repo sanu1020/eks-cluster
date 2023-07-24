@@ -7,40 +7,35 @@ on:
       - 'Path1/**'
       - 'Path2/**'
 
-   
 jobs:
-  tfsecr:
-    name: tfsec sarif report path 1
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      Path1: ${{ steps.changes.outputs.Path1 }}
+      Path2: ${{ steps.changes.outputs.Path2 }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2
+      id: changes
+      with:
+        filters: |
+          Path1:
+            - 'Path1/**'
+          Path2:
+            - 'Path2/**'          
+
+  src:
+    needs: changes
+    if: ${{ needs.changes.outputs.Path1 == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-  
-      - uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            Path1:
-              - 'Path1/**'
+    - uses: actions/checkout@v3
+    - run: echo v.${{ github.sha }}
 
-      # run only if some file in 'src' folder was changed
-      - if: steps.changes.outputs.Path1 == 'true'
-        run: echo v.${{ github.sha }}
-
-  tfsecrt:
-    name: tfsec sarif report path 2
+  infra:
+    needs: changes
+    if: ${{ needs.changes.outputs.Path2 == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            Path2:
-              - 'Path2/**'
-
-        # run only if some file in 'src' folder was changed
-      - if: steps.changes.outputs.Path2 == 'true'
-        run: echo v.${{ github.sha }}
+    - uses: actions/checkout@v3
+    - run: echo v.${{ github.sha }}
