@@ -5,12 +5,5 @@ on:
       - c
    
 jobs:
-    
-  tfsecr:
-    name: tfsec sarif report path 2
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo v.${{ github.sha }}
-
-      - name: Reusuable tests
-        uses: sanu1020/eks-cluster/.github/workflows/reusuable-workflow.yml@c
+  gitHub-actions-demo:
+    uses: ./.github/workflows/reusuable-workflow.yml@c
