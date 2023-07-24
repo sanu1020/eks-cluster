@@ -10,7 +10,7 @@ on:
    
 jobs:
   tfsecr:
-    name: tfsec sarif report path 2
+    name: tfsec sarif report path 1
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
