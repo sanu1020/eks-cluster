@@ -24,7 +24,7 @@ jobs:
           Path2:
             - 'Path2/**'          
 
-  src:
+  Path1:
     needs: changes
     if: ${{ needs.changes.outputs.Path1 == 'true' }}
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
     - uses: actions/checkout@v3
     - run: echo v.${{ github.sha }}
 
-  infra:
+  Path2:
     needs: changes
     if: ${{ needs.changes.outputs.Path2 == 'true' }}
     runs-on: ubuntu-latest
