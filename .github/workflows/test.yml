@@ -6,4 +6,4 @@ on:
    
 jobs:
   gitHub-actions-demo:
-    uses: ./.github/workflows/reusuable-workflow.yml@c
+    uses: ./.github/workflows/reusuable-workflow.yml
