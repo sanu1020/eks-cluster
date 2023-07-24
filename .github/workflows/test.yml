@@ -20,11 +20,10 @@ jobs:
       - if: steps.changes.outputs.Path1 == 'true'
         run: echo v.${{ github.sha }}
 
-  tfsecr:
+  tfsecrt:
     name: tfsec sarif report path 2
     runs-on: ubuntu-latest
     steps:
- 
       - uses: dorny/paths-filter@v2
         id: changes
         with:
