@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - c
+    paths:
+      - 'Path1/**'
+      - 'Path2/**'
+
    
 jobs:
   tfsecr:
