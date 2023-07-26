@@ -1,6 +1,8 @@
 name: tfsec
 on:
-  push:
+  pull_request_target:
+    types:
+      - c
     branches:
       - c
    
